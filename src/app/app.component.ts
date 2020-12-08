@@ -1,5 +1,6 @@
 import { Component, OnInit,  VERSION } from '@angular/core';
 import { of, from } from 'rxjs';
+import { map, skip, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'my-app',
@@ -14,11 +15,18 @@ export class AppComponent implements OnInit {
       err => console.error(`does not compute ${err}`),
       () => console.log('complete')
     );
-    of('of', 'course', 'this', 'will', 'work').subscribe(
-      next => console.log(next),
-      err => {},
-      () => console.log('Did you doubt me?')
-    )
+    of('of', 'course', 'this', 'will', 'work')
+      .pipe(
+        map(i => [i, i]),
+        skip(2),
+        take(3),
+        tap(i => console.log(i))
+      )
+      .subscribe(
+        next => {},
+        err => console.error('You goofed'),
+        () => console.log('Did you doubt me?')
+      )
   }
 
   name = 'Angular ' + VERSION.major;
