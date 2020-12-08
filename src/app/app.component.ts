@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         next => {},
         err => console.error('You goofed'),
-        () => console.log('Did you doubt me?')
+        () => console.log('Is there an echo in here?')
       )
   }
 
